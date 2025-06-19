@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/918547202808" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+  <img src="{{ url_for('static', filename='icons/icons8-whatsapp.gif') }}" alt="WhatsApp" />
+</a>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
+h1 {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 20px; /* Add some horizontal padding */
+}
+
+.product-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-image {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+    border-color: #28a745;
+}
+
+.description {
+    max-width: 500px;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="number"] {
+    padding: 5px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Responsive for tablets and smaller devices */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 90%;
+    }
+
+    .product-image {
+        width: 80vw; /* scale image to viewport width */
+        max-width: 400px;
+    }
+
+    .description {
+        max-width: 100%;
+        padding: 0 10px;
+        font-size: 16px;
+    }
+
+    form {
+        justify-content: center;
+    }
+}
+
+/* Responsive for mobile phones */
+@media (max-width: 480px) {
+    .product-image {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .thumbnail {
+        width: 50px;
+        height: 50px;
+    }
+
+    input[type="number"] {
+        width: 50px;
+        margin-right: 5px;
+        padding: 4px;
+    }
+
+    button {
+        padding: 7px 14px;
+        font-size: 14px;
+    }
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.product-gallery {
+  flex: 1;
+}
+
+.product-image {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.thumbnail-container {
+  margin-top: 10px;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.description {
+  flex: 1;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.product-description-section {
+  max-width: 900px;
+  margin: 0 auto 50px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #000;
+}
+
+.product-description-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.product-description-section h3 {
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.product-description-section p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.product-description-section ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.product-description-section li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #25D366;
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.whatsapp-float img {
+  width: 40px;
+  height: 40px;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+</style>
+
+
+
+
+<h1>{{ product.name }}</h1>
+
+<div class="container">
+  <div class="product-gallery">
+    <!-- Main large image -->
+    <img id="main-image" src="{{ url_for('static', filename=product.images[0]) }}" alt="{{ product.name }}" class="product-image">
+
+    <!-- Thumbnails -->
+    <div class="thumbnail-container">
+      {% for image in product.images %}
+        <img src="{{ url_for('static', filename=image) }}" alt="Thumbnail" class="thumbnail" onclick="changeImage(this)">
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="description">
+    <p><strong>Price:</strong> ₹{{ product.price }}</p>
+    <p>
+      Cardamom is a spice made from the seeds of several plants in the genera
+      <i>Elettaria</i> and <i>Amomum</i>, which are part of the ginger family 
+      <i>Zingiberaceae</i>. It is native to the Indian subcontinent and 
+      Indonesia and is recognized for its small, triangular seed pods.
+    </p>
+    <p>
+      Cardamom has a complex flavor profile, characterized by its sweet, warm, 
+      and spicy notes, with hints of lemon, mint, and pine.
+    </p>
+
+    <form action="{{ url_for('add_to_cart') }}" method="POST">
+      <input type="hidden" name="product_id" value="{{ product._id }}">
+      <input type="number" name="quantity" value="1" min="1">
+      <button type="submit">Add to Cart</button>
+    </form>
+  </div>
+</div>
+
+<!-- NEW: Extra Detailed Product Description Section -->
+<div class="product-description-section">
+  <h2>DESCRIPTION</h2>
+  <p>
+    Red Chilli is widely used in Indian cookery for its red colour, special taste, and spiciness. Red Chilli powder (mirapa podi) by Surya Masale comes from the best farms in India where only the best chillies are hand-picked, with their moisture picked out and then grinded into powder of excellent quality.
+  </p>
+
+  <h3>Usage of Chilli Powder</h3>
+  <ul>
+    <li><strong>Seasoning:</strong> Add a dash of red chilli powder to enhance the flavour of your dishes.</li>
+    <li><strong>Non-Vegetarian Dishes:</strong> Perfect for adding heat to meat and fish recipes.</li>
+    <li><strong>Pickles:</strong> Essential for making spicy pickles.</li>
+    <li><strong>Decorative Touch:</strong> Sprinkle on dahi vade and salads for a pop of colour.</li>
+    <li><strong>Cocktails:</strong> Use it to spice up cocktails, especially those with guava.</li>
+  </ul>
+
+  <h3>Health Benefits of Surya Mirchi Powder</h3>
+  <ul>
+    <li><strong>Stimulates Metabolism:</strong> Capsaicin boosts metabolism, aiding in calorie burning.</li>
+    <li><strong>Reduces Hunger:</strong> Capsaicin helps decrease ghrelin production, promoting satiety.</li>
+    <li><strong>Aids Digestion:</strong> Enhances stomach defences, increases digestive fluids, and promotes enzyme activity.</li>
+  </ul>
+
+  <h3>Nutrients in Surya Red Chilli Powder</h3>
+  <ul>
+    <li><strong>Vitamin A:</strong> Essential for vision and immune function.</li>
+    <li><strong>Vitamin C:</strong> Antioxidant, boosts immune system, enhances iron absorption.</li>
+  </ul>
+</div>
+
+<!-- JS for switching images -->
+<script>
+  function changeImage(imgElement) {
+    document.getElementById("main-image").src = imgElement.src;
+  }
+</script>
+
+{% endblock %}
+

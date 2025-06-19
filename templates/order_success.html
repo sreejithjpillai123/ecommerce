@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="order-success-container">
+  <div class="success-box">
+    <i class="fas fa-check-circle success-icon"></i>
+    <h2 class="success-title">Order Placed Successfully!</h2>
+
+    {% if order %}
+      <div class="order-info">
+        <p><strong>Order ID:</strong> <span>{{ order['_id'] }}</span></p>
+        <p><strong>Status:</strong> <span>{{ order['status'] }}</span></p>
+        <p><strong>Total:</strong> <span>₹{{ order['total_price'] }}</span></p>
+      </div>
+
+      <h3 class="section-title">Ordered Items</h3>
+      <ul class="item-list">
+        {% for item in order['items'] %}
+          <li>
+            <strong>{{ item['name'] }}</strong>
+            <span class="item-details">Qty: {{ item['quantity'] }} | ₹{{ item['price'] }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <h3 class="section-title">Shipping Address</h3>
+      <div class="address-box">
+        <p>{{ order['address']['full_name'] }}</p>
+        <p>{{ order['address']['street'] }}, {{ order['address']['city'] }}</p>
+        <p>{{ order['address']['state'] }} - {{ order['address']['zip_code'] }}</p>
+        <p>{{ order['address']['country'] }}</p>
+        <p>📞 {{ order['address']['phone'] }}</p>
+      </div>
+    {% else %}
+      <p class="no-order">No order found.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Styling -->
+<style>
+  .order-success-container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 25px;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #f9fbe7);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  }
+
+  .success-box {
+    text-align: center;
+  }
+
+  .success-icon {
+    font-size: 60px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+  }
+
+  .success-title {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .order-info p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #444;
+  }
+
+  .order-info span {
+    color: #009688;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: 20px;
+    color: #37474F;
+    margin-top: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    text-align: left;
+  }
+
+  .item-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+    text-align: left;
+  }
+
+  .item-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding: 8px;
+    background-color: #ffffff;
+    border-left: 4px solid #4CAF50;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 4px;
+  }
+
+  .item-details {
+    display: block;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .address-box {
+    margin-top: 10px;
+    background-color: #fffde7;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: left;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  .no-order {
+    color: #f44336;
+    font-weight: bold;
+  }
+
+  @media (max-width: 576px) {
+    .order-success-container {
+      padding: 15px;
+    }
+
+    .success-title {
+      font-size: 22px;
+    }
+
+    .section-title {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% endblock %}
