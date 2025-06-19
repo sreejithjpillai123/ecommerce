@@ -443,7 +443,7 @@ def product_detail(product_id):
         return render_template('product7.html', product=product)
     elif name == 'pepper powder':
         return render_template('product8.html', product=product)
-    elif name == 'leamon pickle':
+    elif name == 'lemon pickle':
         return render_template('product9.html', product=product)
     else:
         return render_template('product_generic.html', product=product)
