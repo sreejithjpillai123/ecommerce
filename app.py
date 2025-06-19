@@ -23,7 +23,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}  # Allowed file types
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/ecommerce_db"
+app.config["MONGO_URI"] = "mongodb+srv://sreejith:sreejith123@cluster0.gcfd31y.mongodb.net/ecommerce?retryWrites=true&w=majority"
 mongo = PyMongo(app)
 app.config['SECRET_KEY'] = 'your_secret_key'
 bcrypt = Bcrypt(app)
